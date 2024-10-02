@@ -103,7 +103,7 @@ type Running struct {
 
 // Calories возввращает количество потраченных килокалория при беге.
 // Формула расчета:
-// ((18 * средняя_скорость_в_км/ч + 1.79) * вес_спортсмена_в_кг / м_в_км * время_тренировки_в_часах * мин_в_часе)
+// ((CaloriesMeanSpeedMultiplier * r.meanSpeed() + CaloriesMeanSpeedShift) * r.Weight / MInKm * r.Duration.Hours() * MinInHours)
 // Это переопределенный метод Calories() из Training.
 func (r Running) Calories() float64 {
 	// вставьте ваш код ниже
@@ -111,12 +111,8 @@ func (r Running) Calories() float64 {
 	if r.Duration == 0 || r.Action == 0 {
 		return 0.0
 	}
-	//((CaloriesMeanSpeedMultiplier * средняя_скорость_в_км/ч + CaloriesMeanSpeedShift)
-	//* вес_спортсмена_в_кг / MInKm * время_тренировки_в_часах * MinInHours)
-	calCalk := CaloriesMeanSpeedMultiplier*r.meanSpeed() + CaloriesMeanSpeedShift
-	manParam := r.Weight / MInKm * r.Duration.Hours() * MinInHours
-	calories := calCalk * manParam
-	return calories
+
+	return ((CaloriesMeanSpeedMultiplier*r.meanSpeed() + CaloriesMeanSpeedShift) * r.Weight / MInKm * r.Duration.Hours() * MinInHours)
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
