@@ -69,16 +69,17 @@ type InfoMessage struct {
 func (t Training) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
 	//Переопределяю переменные
+	/*
+		var training InfoMessage
 
-	var training InfoMessage
+		training.TrainingType = t.TrainingType
+		training.Duration = t.Duration
+		training.Distance = t.distance()
+		training.Speed = t.meanSpeed()
+		training.Calories = t.Calories()
+	*/
 
-	training.TrainingType = t.TrainingType
-	training.Duration = t.Duration
-	training.Distance = t.distance()
-	training.Speed = t.meanSpeed()
-	training.Calories = t.Calories()
-
-	return training
+	return t.TrainingInfo()
 }
 
 // String возвращает строку с информацией о проведенной тренировке.
@@ -133,13 +134,14 @@ func (r Running) Calories() float64 {
 // Это переопределенный метод TrainingInfo() из Training.
 func (r Running) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
+
 	var training InfoMessage
 
-	training.TrainingType = r.TrainingType
-	training.Duration = r.Duration
-	training.Distance = r.distance()
-	training.Speed = r.meanSpeed()
-	training.Calories = r.Calories()
+	training.TrainingType = r.Training.TrainingType
+	training.Duration = r.Training.Duration
+	training.Distance = r.Training.distance()
+	training.Speed = r.Training.meanSpeed()
+	training.Calories = r.Training.Calories()
 
 	return training
 
@@ -168,7 +170,7 @@ type Walking struct {
 func (w Walking) Calories() float64 {
 	// вставьте ваш код ниже
 	// Проверяю на корректнось входящие данные
-	if w.Duration == 0 || w.Action == 0 {
+	if w.Duration == 0 || w.Action == 0 || w.Height == 0 {
 		return 0.0
 	}
 	k1 := CaloriesWeightMultiplier * w.Weight      //привеняю первый коэф-т
@@ -189,11 +191,11 @@ func (w Walking) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
 	var training InfoMessage
 
-	training.TrainingType = w.TrainingType
-	training.Duration = w.Duration
-	training.Distance = w.distance()
-	training.Speed = w.meanSpeed()
-	training.Calories = w.Calories()
+	training.TrainingType = w.Training.TrainingType
+	training.Duration = w.Training.Duration
+	training.Distance = w.Training.distance()
+	training.Speed = w.Training.meanSpeed()
+	training.Calories = w.Training.Calories()
 
 	return training
 
